@@ -25,7 +25,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 import javax.swing.border.Border;
 
@@ -34,6 +33,7 @@ public class Gui extends JFrame {
     private static final int GAP_BORDER = 18;
 
     private static final String STARTING_DIRECTORY_LABEL = "Starting directory: ";
+    private static final String DEFAULT_FILE_MASK = "*.*";
 
     private JMenuItem menuItemBrowse;
     private JMenuItem menuItemSetDirectory;
@@ -41,10 +41,11 @@ public class Gui extends JFrame {
     private JMenuItem menuItemAbout;
 
     private JLabel directoryLabelValue;
-    private JTextField fileMaskTextField;
+    private JLabel fileMaskLabelValue;
 
     private JButton browseButton;
     private JButton setDirectoryButton;
+    private JButton defaultButton;
     private JButton searchButton;
 
     private JTextArea resultTextArea;
@@ -68,6 +69,10 @@ public class Gui extends JFrame {
 
             if ((source == setDirectoryButton) || (source == menuItemSetDirectory)) {
                 SettingDirectory();
+            }
+
+            if (source == defaultButton) {
+                DefaultFileMask();
             }
         }
     }
@@ -128,6 +133,21 @@ public class Gui extends JFrame {
 
         if (directoryName != null) {
             directoryLabelValue.setText(directoryName);
+        }
+    }
+
+    private String DefaultFileMaskGetTitle() {
+        String title = "Default file mask setting";
+        return title;
+    }
+
+    private void DefaultFileMask() {
+        String question = "Set the default file mask " + DEFAULT_FILE_MASK + " ?";
+        String title = DefaultFileMaskGetTitle();
+        int n = JOptionPane.showConfirmDialog(this, question, title, JOptionPane.YES_NO_OPTION);
+
+        if (n == 0) {
+            fileMaskLabelValue.setText(DEFAULT_FILE_MASK);
         }
     }
 
@@ -206,11 +226,17 @@ public class Gui extends JFrame {
 
         // file mask line
         JLabel fileMaskLabel = new JLabel("File mask: ");
-        fileMaskTextField = new JTextField();
+        fileMaskLabelValue = new JLabel(DEFAULT_FILE_MASK);
+
+        defaultButton = new JButton("Default");
+        defaultButton.setToolTipText(DefaultFileMaskGetTitle());
+        defaultButton.addActionListener(buttonsListener);
 
         Container fileMask = Box.createHorizontalBox();
         fileMask.add(fileMaskLabel);
-        fileMask.add(fileMaskTextField);
+        fileMask.add(fileMaskLabelValue);
+        fileMask.add(Box.createHorizontalGlue());
+        fileMask.add(defaultButton);
 
         // search button line
         searchButton = new JButton("Search");
