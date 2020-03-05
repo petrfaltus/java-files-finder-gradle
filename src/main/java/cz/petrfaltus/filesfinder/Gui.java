@@ -34,6 +34,7 @@ public class Gui extends JFrame {
 
     private static final String STARTING_DIRECTORY_LABEL = "Starting directory: ";
     private static final String FILE_MASK_LABEL = "File mask: ";
+
     private static final String DEFAULT_FILE_MASK = "*.*";
 
     private JMenuItem menuItemBrowse;
@@ -107,7 +108,7 @@ public class Gui extends JFrame {
     }
 
     private String BrowseDirectoriesGetTitle() {
-        String title = "Browse the starting directory";
+        String title = "Browsing of the starting directory";
         return title;
     }
 
@@ -129,7 +130,7 @@ public class Gui extends JFrame {
     }
 
     private String SettingDirectoryGetTitle() {
-        String title = "Set manualy the starting directory";
+        String title = "Manual setting of the  starting directory";
         return title;
     }
 
@@ -160,7 +161,7 @@ public class Gui extends JFrame {
     }
 
     private String SettingFileMaskGetTitle() {
-        String title = "Manualy setting of the file mask";
+        String title = "Manual setting of the file mask";
         return title;
     }
 
