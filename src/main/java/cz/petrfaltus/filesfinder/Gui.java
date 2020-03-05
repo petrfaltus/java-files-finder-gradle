@@ -1,21 +1,44 @@
 package cz.petrfaltus.filesfinder;
 
 import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import javax.swing.border.Border;
 
 public class Gui extends JFrame {
+    private static final int GAP_INNER = 8;
+    private static final int GAP_BORDER = 18;
+
     private JMenuItem menuItemExit;
     private JMenuItem menuItemAbout;
+
+    private JTextField directoryTextField;
+    private JTextField fileMaskTextField;
+
+    private JButton browseButton;
+    private JButton searchButton;
+
+    private JTextArea resultTextArea;
 
     private class MenuItemsListener implements ActionListener {
         @Override
@@ -88,9 +111,70 @@ public class Gui extends JFrame {
         this.setJMenuBar(menuBar);
     }
 
+    private void Body() {
+        Dimension gapInner = new Dimension(GAP_INNER, GAP_INNER);
+
+        // directory line
+        JLabel directoryLabel = new JLabel("Starting directory: ");
+        directoryTextField = new JTextField();
+        browseButton = new JButton("Browse");
+
+        Container directory = Box.createHorizontalBox();
+        directory.add(directoryLabel);
+        directory.add(directoryTextField);
+        directory.add(Box.createRigidArea(gapInner));
+        directory.add(browseButton);
+
+        // file mask line
+        JLabel fileMaskLabel = new JLabel("File mask: ");
+        fileMaskTextField = new JTextField();
+
+        Container fileMask = Box.createHorizontalBox();
+        fileMask.add(fileMaskLabel);
+        fileMask.add(fileMaskTextField);
+
+        // search button line
+        searchButton = new JButton("Search");
+
+        Container search = Box.createHorizontalBox();
+        search.add(Box.createHorizontalGlue());
+        search.add(searchButton);
+
+        // result text area
+        resultTextArea = new JTextArea(90, 300);
+        resultTextArea.setEditable(false);
+        resultTextArea.setLineWrap(false);
+
+        JScrollPane resultScrollPane = new JScrollPane(resultTextArea);
+
+        // final panel
+        JPanel panel = new JPanel();
+
+        Border panelBorder = BorderFactory.createEmptyBorder(GAP_BORDER, GAP_BORDER, GAP_BORDER, GAP_BORDER);
+        panel.setBorder(panelBorder);
+
+        BoxLayout panelLayout = new BoxLayout(panel, BoxLayout.PAGE_AXIS);
+        panel.setLayout(panelLayout);
+
+        panel.add(directory);
+        panel.add(Box.createRigidArea(gapInner));
+        panel.add(fileMask);
+        panel.add(Box.createRigidArea(gapInner));
+        panel.add(Box.createRigidArea(gapInner));
+        panel.add(search);
+        panel.add(Box.createRigidArea(gapInner));
+        panel.add(Box.createRigidArea(gapInner));
+        panel.add(resultScrollPane);
+
+        // final container
+        Container container = getContentPane();
+        container.add(panel);
+    }
+
     public Gui(String title) {
         super(title);
 
         Menu();
+        Body();
     }
 }
