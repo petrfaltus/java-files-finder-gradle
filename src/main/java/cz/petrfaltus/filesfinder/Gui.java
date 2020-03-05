@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import java.io.File;
+import java.io.FileFilter;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -32,10 +33,12 @@ public class Gui extends JFrame {
     private static final int GAP_INNER = 8;
     private static final int GAP_BORDER = 18;
 
+    private static final String EMPTY_STRING = "";
+
     private static final String STARTING_DIRECTORY_LABEL = "Starting directory: ";
     private static final String FILE_MASK_LABEL = "File mask: ";
 
-    private static final String DEFAULT_FILE_MASK = "*.*";
+    private static final String DEFAULT_FILE_MASK = "";
 
     private JMenuItem menuItemBrowse;
     private JMenuItem menuItemSetDirectory;
@@ -54,6 +57,7 @@ public class Gui extends JFrame {
     private JButton searchButton;
 
     private JTextArea resultTextArea;
+    private String resultContent;
 
     private class MenuItemsButtonsListener implements ActionListener {
         @Override
@@ -82,6 +86,10 @@ public class Gui extends JFrame {
 
             if ((source == setFileMaskButton) || (source == menuItemSetFileMask)) {
                 SettingFileMask();
+            }
+
+            if (source == searchButton) {
+                Searching();
             }
         }
     }
@@ -151,7 +159,7 @@ public class Gui extends JFrame {
     }
 
     private void DefaultFileMask() {
-        String question = "Set the default file mask " + DEFAULT_FILE_MASK + " ?";
+        String question = "Set the default file mask '" + DEFAULT_FILE_MASK + "' ?";
         String title = DefaultFileMaskGetTitle();
         int n = JOptionPane.showConfirmDialog(this, question, title, JOptionPane.YES_NO_OPTION);
 
@@ -174,6 +182,82 @@ public class Gui extends JFrame {
         if (fileMaskName != null) {
             fileMaskLabelValue.setText(fileMaskName);
         }
+    }
+
+    private void SearchingRecursive(File directory) {
+        FileFilter directoryFilter = new FileFilter() {
+            public boolean accept(File file) {
+                if (file.isDirectory()) {
+                    return true;
+                }
+
+                return false;
+            }
+        };
+
+        File[] subdirectories = directory.listFiles(directoryFilter);
+        for (File subdirectory: subdirectories) {
+            SearchingRecursive(subdirectory);
+        }
+
+        FileFilter fileFilter = new FileFilter() {
+            public boolean accept(File file) {
+                if (!file.isFile()) {
+                    return false;
+                }
+
+                String fileMaskName = fileMaskLabelValue.getText();
+                if (fileMaskName.equals(EMPTY_STRING)) {
+                    return true;
+                }
+
+                String fileName = file.getName();
+                if (fileName.contains(fileMaskName)) {
+                    return true;
+                }
+
+                return false;
+            }
+        };
+
+        File[] files = directory.listFiles(fileFilter);
+        for (File file: files) {
+            resultContent += file.getPath();
+            resultContent += System.lineSeparator();
+        }
+    }
+
+    private String SearchingGetTitle() {
+        String title = "Files searching";
+        return title;
+    }
+
+    private void Searching() {
+        String question = "Start searching?";
+        String title = SearchingGetTitle();
+        int n = JOptionPane.showConfirmDialog(this, question, title, JOptionPane.YES_NO_OPTION);
+
+        if (n != 0) {
+            return;
+        }
+
+        String directoryName = directoryLabelValue.getText().trim();
+        if (directoryName.equals(EMPTY_STRING)) {
+            String message = "The directory has not been set";
+            JOptionPane.showMessageDialog(this, message, SearchingGetTitle(), JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        File directory = new File(directoryName);
+        if (!directory.isDirectory()) {
+            String message = "The directory " + directoryName + " does not exist";
+            JOptionPane.showMessageDialog(this, message, SearchingGetTitle(), JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        resultContent = "";
+        SearchingRecursive(directory);
+        resultTextArea.setText(resultContent);
     }
 
     private void Menu() {
@@ -248,7 +332,7 @@ public class Gui extends JFrame {
 
         // directory line
         JLabel directoryLabel = new JLabel(STARTING_DIRECTORY_LABEL);
-        directoryLabelValue = new JLabel("");
+        directoryLabelValue = new JLabel(EMPTY_STRING);
 
         browseButton = new JButton("Browse");
         browseButton.setToolTipText(BrowseDirectoriesGetTitle());
@@ -288,6 +372,8 @@ public class Gui extends JFrame {
 
         // search button line
         searchButton = new JButton("Search");
+        searchButton.setToolTipText(SearchingGetTitle());
+        searchButton.addActionListener(buttonsListener);
 
         Container search = Box.createHorizontalBox();
         search.add(Box.createHorizontalGlue());
