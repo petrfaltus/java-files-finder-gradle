@@ -59,6 +59,7 @@ public class Gui extends JFrame {
 
     private JTextArea resultTextArea;
     private String resultContent;
+    private int resultCount;
 
     private class MenuItemsButtonsListener implements ActionListener {
         @Override
@@ -225,6 +226,7 @@ public class Gui extends JFrame {
         for (File file: files) {
             resultContent += file.getPath();
             resultContent += System.lineSeparator();
+            resultCount++;
         }
     }
 
@@ -257,8 +259,12 @@ public class Gui extends JFrame {
         }
 
         resultContent = "";
+        resultCount = 0;
         SearchingRecursive(directory);
         resultTextArea.setText(resultContent);
+
+        String message = "Files found: " + resultCount;
+        JOptionPane.showMessageDialog(this, message, SearchingGetTitle(), JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void Menu() {
