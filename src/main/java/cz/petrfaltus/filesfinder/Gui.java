@@ -23,6 +23,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -32,6 +33,7 @@ public class Gui extends JFrame {
     private static final int GAP_INNER = 8;
     private static final int GAP_BORDER = 18;
 
+    private JMenuItem menuItemBrowse;
     private JMenuItem menuItemExit;
     private JMenuItem menuItemAbout;
 
@@ -56,7 +58,7 @@ public class Gui extends JFrame {
                 AboutApplication();
             }
 
-            if (source == browseButton) {
+            if ((source == browseButton) || (source == menuItemBrowse)) {
                 BrowseDirectories();
             }
         }
@@ -109,6 +111,11 @@ public class Gui extends JFrame {
         MenuItemsButtonsListener menuItemsListener = new MenuItemsButtonsListener();
 
         // File menu items
+        menuItemBrowse = new JMenuItem("Browse directory");
+        menuItemBrowse.setToolTipText(BrowseDirectoriesGetTitle());
+        menuItemBrowse.setMnemonic(KeyEvent.VK_B);
+        menuItemBrowse.addActionListener(menuItemsListener);
+
         menuItemExit = new JMenuItem("Exit");
         menuItemExit.setToolTipText("Exit the application");
         menuItemExit.setMnemonic(KeyEvent.VK_E);
@@ -116,6 +123,8 @@ public class Gui extends JFrame {
 
         JMenu menuFile = new JMenu("File");
         menuFile.setMnemonic(KeyEvent.VK_F);
+        menuFile.add(menuItemBrowse);
+        menuFile.add(new JSeparator());
         menuFile.add(menuItemExit);
 
         // horizontal menu glue
