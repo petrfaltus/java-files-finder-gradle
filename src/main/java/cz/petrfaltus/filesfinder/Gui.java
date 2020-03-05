@@ -180,6 +180,16 @@ public class Gui extends JFrame {
         MenuItemsButtonsListener menuItemsListener = new MenuItemsButtonsListener();
 
         // File menu items
+        menuItemExit = new JMenuItem("Exit");
+        menuItemExit.setToolTipText("Exit the application");
+        menuItemExit.setMnemonic(KeyEvent.VK_E);
+        menuItemExit.addActionListener(menuItemsListener);
+
+        JMenu menuFile = new JMenu("File");
+        menuFile.setMnemonic(KeyEvent.VK_F);
+        menuFile.add(menuItemExit);
+
+        // Run menu items
         menuItemBrowse = new JMenuItem("Browse directory");
         menuItemBrowse.setToolTipText(BrowseDirectoriesGetTitle());
         menuItemBrowse.setMnemonic(KeyEvent.VK_B);
@@ -200,20 +210,13 @@ public class Gui extends JFrame {
         menuItemSetFileMask.setMnemonic(KeyEvent.VK_M);
         menuItemSetFileMask.addActionListener(menuItemsListener);
 
-        menuItemExit = new JMenuItem("Exit");
-        menuItemExit.setToolTipText("Exit the application");
-        menuItemExit.setMnemonic(KeyEvent.VK_E);
-        menuItemExit.addActionListener(menuItemsListener);
-
-        JMenu menuFile = new JMenu("File");
-        menuFile.setMnemonic(KeyEvent.VK_F);
-        menuFile.add(menuItemBrowse);
-        menuFile.add(menuItemSetDirectory);
-        menuFile.add(new JSeparator());
-        menuFile.add(menuItemDefault);
-        menuFile.add(menuItemSetFileMask);
-        menuFile.add(new JSeparator());
-        menuFile.add(menuItemExit);
+        JMenu menuRun = new JMenu("Run");
+        menuRun.setMnemonic(KeyEvent.VK_R);
+        menuRun.add(menuItemBrowse);
+        menuRun.add(menuItemSetDirectory);
+        menuRun.add(new JSeparator());
+        menuRun.add(menuItemDefault);
+        menuRun.add(menuItemSetFileMask);
 
         // horizontal menu glue
         Component horizontalGlue = Box.createHorizontalGlue();
@@ -231,6 +234,7 @@ public class Gui extends JFrame {
         // final menu bar
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(menuFile);
+        menuBar.add(menuRun);
         menuBar.add(horizontalGlue);
         menuBar.add(menuInfo);
 
