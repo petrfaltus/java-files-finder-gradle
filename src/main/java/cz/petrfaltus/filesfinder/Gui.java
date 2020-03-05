@@ -36,6 +36,7 @@ public class Gui extends JFrame {
     private static final String STARTING_DIRECTORY_LABEL = "Starting directory: ";
 
     private JMenuItem menuItemBrowse;
+    private JMenuItem menuItemSetDirectory;
     private JMenuItem menuItemExit;
     private JMenuItem menuItemAbout;
 
@@ -65,7 +66,7 @@ public class Gui extends JFrame {
                 BrowseDirectories();
             }
 
-            if (source == setDirectoryButton) {
+            if ((source == setDirectoryButton) || (source == menuItemSetDirectory)) {
                 SettingDirectory();
             }
         }
@@ -139,6 +140,11 @@ public class Gui extends JFrame {
         menuItemBrowse.setMnemonic(KeyEvent.VK_B);
         menuItemBrowse.addActionListener(menuItemsListener);
 
+        menuItemSetDirectory = new JMenuItem("Set directory");
+        menuItemSetDirectory.setToolTipText(SettingDirectoryGetTitle());
+        menuItemSetDirectory.setMnemonic(KeyEvent.VK_S);
+        menuItemSetDirectory.addActionListener(menuItemsListener);
+
         menuItemExit = new JMenuItem("Exit");
         menuItemExit.setToolTipText("Exit the application");
         menuItemExit.setMnemonic(KeyEvent.VK_E);
@@ -147,6 +153,7 @@ public class Gui extends JFrame {
         JMenu menuFile = new JMenu("File");
         menuFile.setMnemonic(KeyEvent.VK_F);
         menuFile.add(menuItemBrowse);
+        menuFile.add(menuItemSetDirectory);
         menuFile.add(new JSeparator());
         menuFile.add(menuItemExit);
 
