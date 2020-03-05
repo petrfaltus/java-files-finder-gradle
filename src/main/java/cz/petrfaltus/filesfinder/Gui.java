@@ -37,6 +37,7 @@ public class Gui extends JFrame {
 
     private JMenuItem menuItemBrowse;
     private JMenuItem menuItemSetDirectory;
+    private JMenuItem menuItemDefault;
     private JMenuItem menuItemExit;
     private JMenuItem menuItemAbout;
 
@@ -71,7 +72,7 @@ public class Gui extends JFrame {
                 SettingDirectory();
             }
 
-            if (source == defaultButton) {
+            if ((source == defaultButton) || (source == menuItemDefault)) {
                 DefaultFileMask();
             }
         }
@@ -165,6 +166,11 @@ public class Gui extends JFrame {
         menuItemSetDirectory.setMnemonic(KeyEvent.VK_S);
         menuItemSetDirectory.addActionListener(menuItemsListener);
 
+        menuItemDefault = new JMenuItem("Default file maskj");
+        menuItemDefault.setToolTipText(DefaultFileMaskGetTitle());
+        menuItemDefault.setMnemonic(KeyEvent.VK_D);
+        menuItemDefault.addActionListener(menuItemsListener);
+
         menuItemExit = new JMenuItem("Exit");
         menuItemExit.setToolTipText("Exit the application");
         menuItemExit.setMnemonic(KeyEvent.VK_E);
@@ -174,6 +180,8 @@ public class Gui extends JFrame {
         menuFile.setMnemonic(KeyEvent.VK_F);
         menuFile.add(menuItemBrowse);
         menuFile.add(menuItemSetDirectory);
+        menuFile.add(new JSeparator());
+        menuFile.add(menuItemDefault);
         menuFile.add(new JSeparator());
         menuFile.add(menuItemExit);
 
