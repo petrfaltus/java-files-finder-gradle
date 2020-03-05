@@ -8,10 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import java.io.File;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -32,7 +35,7 @@ public class Gui extends JFrame {
     private JMenuItem menuItemExit;
     private JMenuItem menuItemAbout;
 
-    private JTextField directoryTextField;
+    private JLabel directoryLabelValue;
     private JTextField fileMaskTextField;
 
     private JButton browseButton;
@@ -40,7 +43,7 @@ public class Gui extends JFrame {
 
     private JTextArea resultTextArea;
 
-    private class MenuItemsListener implements ActionListener {
+    private class MenuItemsButtonsListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event) {
             Object source = event.getSource();
@@ -51,6 +54,10 @@ public class Gui extends JFrame {
 
             if (source == menuItemAbout) {
                 AboutApplication();
+            }
+
+            if (source == browseButton) {
+                BrowseDirectories();
             }
         }
     }
@@ -76,8 +83,30 @@ public class Gui extends JFrame {
         JOptionPane.showMessageDialog(this, message, AboutApplicationGetTitle(), JOptionPane.INFORMATION_MESSAGE);
     }
 
+    private String BrowseDirectoriesGetTitle() {
+        String title = "Browse the starting directory";
+        return title;
+    }
+
+    private void BrowseDirectories() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle(BrowseDirectoriesGetTitle());
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+
+        String directoryName = directoryLabelValue.getText();
+        File directory = new File(directoryName);
+        fileChooser.setCurrentDirectory(directory);
+
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            directory = fileChooser.getSelectedFile();
+            directoryName = directory.getPath();
+            directoryLabelValue.setText(directoryName);
+        }
+    }
+
     private void Menu() {
-        MenuItemsListener menuItemsListener = new MenuItemsListener();
+        MenuItemsButtonsListener menuItemsListener = new MenuItemsButtonsListener();
 
         // File menu items
         menuItemExit = new JMenuItem("Exit");
@@ -114,15 +143,19 @@ public class Gui extends JFrame {
     private void Body() {
         Dimension gapInner = new Dimension(GAP_INNER, GAP_INNER);
 
+        MenuItemsButtonsListener buttonsListener = new MenuItemsButtonsListener();
+
         // directory line
         JLabel directoryLabel = new JLabel("Starting directory: ");
-        directoryTextField = new JTextField();
+        directoryLabelValue = new JLabel("");
         browseButton = new JButton("Browse");
+        browseButton.setToolTipText(BrowseDirectoriesGetTitle());
+        browseButton.addActionListener(buttonsListener);
 
         Container directory = Box.createHorizontalBox();
         directory.add(directoryLabel);
-        directory.add(directoryTextField);
-        directory.add(Box.createRigidArea(gapInner));
+        directory.add(directoryLabelValue);
+        directory.add(Box.createHorizontalGlue());
         directory.add(browseButton);
 
         // file mask line
