@@ -40,11 +40,12 @@ public class Gui extends JFrame {
 
     private static final String DEFAULT_FILE_MASK = "";
 
+    private JMenuItem menuItemExit;
     private JMenuItem menuItemBrowse;
     private JMenuItem menuItemSetDirectory;
     private JMenuItem menuItemDefault;
     private JMenuItem menuItemSetFileMask;
-    private JMenuItem menuItemExit;
+    private JMenuItem menuItemSearch;
     private JMenuItem menuItemAbout;
 
     private JLabel directoryLabelValue;
@@ -88,7 +89,7 @@ public class Gui extends JFrame {
                 SettingFileMask();
             }
 
-            if (source == searchButton) {
+            if ((source == searchButton) || (source == menuItemSearch)) {
                 Searching();
             }
         }
@@ -294,6 +295,11 @@ public class Gui extends JFrame {
         menuItemSetFileMask.setMnemonic(KeyEvent.VK_M);
         menuItemSetFileMask.addActionListener(menuItemsListener);
 
+        menuItemSearch = new JMenuItem("Search");
+        menuItemSearch.setToolTipText(SearchingGetTitle());
+        menuItemSearch.setMnemonic(KeyEvent.VK_A);
+        menuItemSearch.addActionListener(menuItemsListener);
+
         JMenu menuRun = new JMenu("Run");
         menuRun.setMnemonic(KeyEvent.VK_R);
         menuRun.add(menuItemBrowse);
@@ -301,6 +307,8 @@ public class Gui extends JFrame {
         menuRun.add(new JSeparator());
         menuRun.add(menuItemDefault);
         menuRun.add(menuItemSetFileMask);
+        menuRun.add(new JSeparator());
+        menuRun.add(menuItemSearch);
 
         // horizontal menu glue
         Component horizontalGlue = Box.createHorizontalGlue();
