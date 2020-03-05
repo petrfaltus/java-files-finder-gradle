@@ -33,6 +33,8 @@ public class Gui extends JFrame {
     private static final int GAP_INNER = 8;
     private static final int GAP_BORDER = 18;
 
+    private static final String STARTING_DIRECTORY_LABEL = "Starting directory: ";
+
     private JMenuItem menuItemBrowse;
     private JMenuItem menuItemExit;
     private JMenuItem menuItemAbout;
@@ -41,6 +43,7 @@ public class Gui extends JFrame {
     private JTextField fileMaskTextField;
 
     private JButton browseButton;
+    private JButton setDirectoryButton;
     private JButton searchButton;
 
     private JTextArea resultTextArea;
@@ -60,6 +63,10 @@ public class Gui extends JFrame {
 
             if ((source == browseButton) || (source == menuItemBrowse)) {
                 BrowseDirectories();
+            }
+
+            if (source == setDirectoryButton) {
+                SettingDirectory();
             }
         }
     }
@@ -103,6 +110,22 @@ public class Gui extends JFrame {
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             directory = fileChooser.getSelectedFile();
             directoryName = directory.getPath();
+            directoryLabelValue.setText(directoryName);
+        }
+    }
+
+    private String SettingDirectoryGetTitle() {
+        String title = "Set manualy the starting directory";
+        return title;
+    }
+
+    private void SettingDirectory() {
+        String message = STARTING_DIRECTORY_LABEL;
+        String title = SettingDirectoryGetTitle();
+        String directoryName = directoryLabelValue.getText();
+        directoryName = (String)JOptionPane.showInputDialog(this, message, title, JOptionPane.PLAIN_MESSAGE, null, null, directoryName);
+
+        if (directoryName != null) {
             directoryLabelValue.setText(directoryName);
         }
     }
@@ -155,17 +178,24 @@ public class Gui extends JFrame {
         MenuItemsButtonsListener buttonsListener = new MenuItemsButtonsListener();
 
         // directory line
-        JLabel directoryLabel = new JLabel("Starting directory: ");
+        JLabel directoryLabel = new JLabel(STARTING_DIRECTORY_LABEL);
         directoryLabelValue = new JLabel("");
+
         browseButton = new JButton("Browse");
         browseButton.setToolTipText(BrowseDirectoriesGetTitle());
         browseButton.addActionListener(buttonsListener);
+
+        setDirectoryButton = new JButton("Set");
+        setDirectoryButton.setToolTipText(SettingDirectoryGetTitle());
+        setDirectoryButton.addActionListener(buttonsListener);
 
         Container directory = Box.createHorizontalBox();
         directory.add(directoryLabel);
         directory.add(directoryLabelValue);
         directory.add(Box.createHorizontalGlue());
         directory.add(browseButton);
+        directory.add(Box.createRigidArea(gapInner));
+        directory.add(setDirectoryButton);
 
         // file mask line
         JLabel fileMaskLabel = new JLabel("File mask: ");
