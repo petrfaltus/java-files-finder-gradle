@@ -274,7 +274,7 @@ public class Gui extends JFrame {
         // File menu items
         menuItemExit = new JMenuItem("Exit");
         menuItemExit.setToolTipText("Exit the application");
-        menuItemExit.setMnemonic(KeyEvent.VK_E);
+        menuItemExit.setMnemonic(KeyEvent.VK_X);
         menuItemExit.addActionListener(menuItemsListener);
 
         JMenu menuFile = new JMenu("File");
@@ -299,7 +299,7 @@ public class Gui extends JFrame {
 
         menuItemSetFileMask = new JMenuItem("Set file mask");
         menuItemSetFileMask.setToolTipText(SettingFileMaskGetTitle());
-        menuItemSetFileMask.setMnemonic(KeyEvent.VK_M);
+        menuItemSetFileMask.setMnemonic(KeyEvent.VK_E);
         menuItemSetFileMask.addActionListener(menuItemsListener);
 
         menuItemSearch = new JMenuItem("Search");
@@ -351,10 +351,12 @@ public class Gui extends JFrame {
 
         browseButton = new JButton("Browse");
         browseButton.setToolTipText(BrowseDirectoriesGetTitle());
+        browseButton.setMnemonic(KeyEvent.VK_B);
         browseButton.addActionListener(buttonsListener);
 
         setDirectoryButton = new JButton("Set");
         setDirectoryButton.setToolTipText(SettingDirectoryGetTitle());
+        setDirectoryButton.setMnemonic(KeyEvent.VK_S);
         setDirectoryButton.addActionListener(buttonsListener);
 
         Container directory = Box.createHorizontalBox();
@@ -371,10 +373,12 @@ public class Gui extends JFrame {
 
         defaultButton = new JButton("Default");
         defaultButton.setToolTipText(DefaultFileMaskGetTitle());
+        defaultButton.setMnemonic(KeyEvent.VK_D);
         defaultButton.addActionListener(buttonsListener);
 
         setFileMaskButton = new JButton("Set");
         setFileMaskButton.setToolTipText(SettingFileMaskGetTitle());
+        setFileMaskButton.setMnemonic(KeyEvent.VK_E);
         setFileMaskButton.addActionListener(buttonsListener);
 
         Container fileMask = Box.createHorizontalBox();
@@ -388,6 +392,7 @@ public class Gui extends JFrame {
         // search button line
         searchButton = new JButton("Search");
         searchButton.setToolTipText(SearchingGetTitle());
+        searchButton.setMnemonic(KeyEvent.VK_A);
         searchButton.addActionListener(buttonsListener);
 
         Container search = Box.createHorizontalBox();
