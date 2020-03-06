@@ -18,8 +18,8 @@ The current **Java compatibility setting** in the project is the version **1.7**
 
 ### Running under Windows
 - the batch *_make.bat* builds the project, it creates the executable **JAR** file (**Java archive**) and the **EXE** file (**Windows executable**)
-- the batch *_run_java_archive.bat* launchs the Java archive file in the **build\libs** directory
-- the batch *_run_windows_executable.bat* launchs the Windows executable file in the **build\launch4j** directory
+- the batch *_run_java_archive.bat* launches the Java archive file in the **build\libs** directory
+- the batch *_run_windows_executable.bat* launches the Windows executable file in the **build\launch4j** directory
 - the batch *_clean* deletes files and directories created at the time of Gradle building
 
 ### Running under Linux
@@ -31,4 +31,4 @@ Warning - both files *settings.gradle* and *build.gradle* have the **Windows lik
 ## To do (my plans to the future)
 - the application should also search the text **in the body** of files
 - the text searching should also support **regular expressions**
-- the search functionality should be in any **other thread** and there should be the button for **canceling**
+- the search functionality should be running in any **other thread** and there should be also the button for **canceling**
