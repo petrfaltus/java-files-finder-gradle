@@ -38,7 +38,7 @@ public class Gui extends JFrame {
     private static final String STARTING_DIRECTORY_LABEL = "Starting directory: ";
     private static final String FILE_MASK_LABEL = "File mask: ";
 
-    private static final String DEFAULT_FILE_MASK = "";
+    private static final String DEFAULT_FILE_MASK = EMPTY_STRING;
 
     private JMenuItem menuItemExit;
     private JMenuItem menuItemBrowse;
@@ -161,7 +161,7 @@ public class Gui extends JFrame {
     }
 
     private void DefaultFileMask() {
-        String question = "Set the default file mask '" + DEFAULT_FILE_MASK + "' ?";
+        String question = "Really set the default file mask '" + DEFAULT_FILE_MASK + "' ?";
         String title = DefaultFileMaskGetTitle();
         int n = JOptionPane.showConfirmDialog(this, question, title, JOptionPane.YES_NO_OPTION);
 
@@ -236,7 +236,7 @@ public class Gui extends JFrame {
     }
 
     private void Searching() {
-        String question = "Start searching?";
+        String question = "Really start the searching ?";
         String title = SearchingGetTitle();
         int n = JOptionPane.showConfirmDialog(this, question, title, JOptionPane.YES_NO_OPTION);
 
@@ -246,25 +246,25 @@ public class Gui extends JFrame {
 
         String directoryName = directoryLabelValue.getText().trim();
         if (directoryName.equals(EMPTY_STRING)) {
-            String message = "The directory has not been set";
+            String message = "The starting directory has not been set";
             JOptionPane.showMessageDialog(this, message, SearchingGetTitle(), JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         File directory = new File(directoryName);
         if (!directory.isDirectory()) {
-            String message = "The directory " + directoryName + " does not exist";
+            String message = "The directory '" + directoryName + "' does not exist";
             JOptionPane.showMessageDialog(this, message, SearchingGetTitle(), JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        resultContent = "";
+        resultContent = EMPTY_STRING;
         resultCount = 0;
         SearchingRecursive(directory);
         resultTextArea.setText(resultContent);
         resultTextArea.setCaretPosition(0);
 
-        String message = "Files found: " + resultCount;
+        String message = "Number of found files: " + resultCount;
         JOptionPane.showMessageDialog(this, message, SearchingGetTitle(), JOptionPane.INFORMATION_MESSAGE);
     }
 
@@ -292,7 +292,7 @@ public class Gui extends JFrame {
         menuItemSetDirectory.setMnemonic(KeyEvent.VK_S);
         menuItemSetDirectory.addActionListener(menuItemsListener);
 
-        menuItemDefault = new JMenuItem("Default file maskj");
+        menuItemDefault = new JMenuItem("Default file mask");
         menuItemDefault.setToolTipText(DefaultFileMaskGetTitle());
         menuItemDefault.setMnemonic(KeyEvent.VK_D);
         menuItemDefault.addActionListener(menuItemsListener);
