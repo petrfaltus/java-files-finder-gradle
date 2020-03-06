@@ -3,6 +3,7 @@ package cz.petrfaltus.filesfinder;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Image;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,7 @@ import java.io.FileFilter;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -275,40 +277,48 @@ public class Gui extends JFrame {
         menuItemExit = new JMenuItem("Exit");
         menuItemExit.setToolTipText("Exit the application");
         menuItemExit.setMnemonic(KeyEvent.VK_X);
+        menuItemExit.setIcon(Icons.getResource("/ico/exit.png"));
         menuItemExit.addActionListener(menuItemsListener);
 
         JMenu menuFile = new JMenu("File");
         menuFile.setMnemonic(KeyEvent.VK_F);
+        menuFile.setIcon(Icons.getResource("/ico/file.png"));
         menuFile.add(menuItemExit);
 
         // Run menu items
         menuItemBrowse = new JMenuItem("Browse directory");
         menuItemBrowse.setToolTipText(BrowseDirectoriesGetTitle());
         menuItemBrowse.setMnemonic(KeyEvent.VK_B);
+        menuItemBrowse.setIcon(Icons.getResource("/ico/browse.png"));
         menuItemBrowse.addActionListener(menuItemsListener);
 
         menuItemSetDirectory = new JMenuItem("Set directory");
         menuItemSetDirectory.setToolTipText(SettingDirectoryGetTitle());
         menuItemSetDirectory.setMnemonic(KeyEvent.VK_S);
+        menuItemSetDirectory.setIcon(Icons.getResource("/ico/set.png"));
         menuItemSetDirectory.addActionListener(menuItemsListener);
 
         menuItemDefault = new JMenuItem("Default file mask");
         menuItemDefault.setToolTipText(DefaultFileMaskGetTitle());
         menuItemDefault.setMnemonic(KeyEvent.VK_D);
+        menuItemDefault.setIcon(Icons.getResource("/ico/default.png"));
         menuItemDefault.addActionListener(menuItemsListener);
 
         menuItemSetFileMask = new JMenuItem("Set file mask");
         menuItemSetFileMask.setToolTipText(SettingFileMaskGetTitle());
         menuItemSetFileMask.setMnemonic(KeyEvent.VK_E);
+        menuItemSetFileMask.setIcon(Icons.getResource("/ico/set.png"));
         menuItemSetFileMask.addActionListener(menuItemsListener);
 
         menuItemSearch = new JMenuItem("Search");
         menuItemSearch.setToolTipText(SearchingGetTitle());
         menuItemSearch.setMnemonic(KeyEvent.VK_A);
+        menuItemSearch.setIcon(Icons.getResource("/ico/search.png"));
         menuItemSearch.addActionListener(menuItemsListener);
 
         JMenu menuRun = new JMenu("Run");
         menuRun.setMnemonic(KeyEvent.VK_R);
+        menuRun.setIcon(Icons.getResource("/ico/run.png"));
         menuRun.add(menuItemBrowse);
         menuRun.add(menuItemSetDirectory);
         menuRun.add(new JSeparator());
@@ -324,10 +334,12 @@ public class Gui extends JFrame {
         menuItemAbout = new JMenuItem("About");
         menuItemAbout.setToolTipText(AboutApplicationGetTitle());
         menuItemAbout.setMnemonic(KeyEvent.VK_A);
+        menuItemAbout.setIcon(Icons.getResource("/ico/about.png"));
         menuItemAbout.addActionListener(menuItemsListener);
 
         JMenu menuInfo = new JMenu("Info");
         menuInfo.setMnemonic(KeyEvent.VK_I);
+        menuInfo.setIcon(Icons.getResource("/ico/info.png"));
         menuInfo.add(menuItemAbout);
 
         // final menu bar
@@ -352,11 +364,13 @@ public class Gui extends JFrame {
         browseButton = new JButton("Browse");
         browseButton.setToolTipText(BrowseDirectoriesGetTitle());
         browseButton.setMnemonic(KeyEvent.VK_B);
+        browseButton.setIcon(Icons.getResource("/ico/browse.png"));
         browseButton.addActionListener(buttonsListener);
 
         setDirectoryButton = new JButton("Set");
         setDirectoryButton.setToolTipText(SettingDirectoryGetTitle());
         setDirectoryButton.setMnemonic(KeyEvent.VK_S);
+        setDirectoryButton.setIcon(Icons.getResource("/ico/set.png"));
         setDirectoryButton.addActionListener(buttonsListener);
 
         Container directory = Box.createHorizontalBox();
@@ -374,11 +388,13 @@ public class Gui extends JFrame {
         defaultButton = new JButton("Default");
         defaultButton.setToolTipText(DefaultFileMaskGetTitle());
         defaultButton.setMnemonic(KeyEvent.VK_D);
+        defaultButton.setIcon(Icons.getResource("/ico/default.png"));
         defaultButton.addActionListener(buttonsListener);
 
         setFileMaskButton = new JButton("Set");
         setFileMaskButton.setToolTipText(SettingFileMaskGetTitle());
         setFileMaskButton.setMnemonic(KeyEvent.VK_E);
+        setFileMaskButton.setIcon(Icons.getResource("/ico/set.png"));
         setFileMaskButton.addActionListener(buttonsListener);
 
         Container fileMask = Box.createHorizontalBox();
@@ -393,6 +409,7 @@ public class Gui extends JFrame {
         searchButton = new JButton("Search");
         searchButton.setToolTipText(SearchingGetTitle());
         searchButton.setMnemonic(KeyEvent.VK_A);
+        searchButton.setIcon(Icons.getResource("/ico/search.png"));
         searchButton.addActionListener(buttonsListener);
 
         Container search = Box.createHorizontalBox();
@@ -432,6 +449,11 @@ public class Gui extends JFrame {
 
     public Gui(String title) {
         super(title);
+
+        // application icon
+        ImageIcon imageIcon = Icons.getResource("/ico/filesfinder.png");
+        Image image = imageIcon.getImage();
+        this.setIconImage(image);
 
         Menu();
         Body();
