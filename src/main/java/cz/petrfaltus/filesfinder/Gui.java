@@ -262,6 +262,7 @@ public class Gui extends JFrame {
         resultCount = 0;
         SearchingRecursive(directory);
         resultTextArea.setText(resultContent);
+        resultTextArea.setCaretPosition(0);
 
         String message = "Files found: " + resultCount;
         JOptionPane.showMessageDialog(this, message, SearchingGetTitle(), JOptionPane.INFORMATION_MESSAGE);
