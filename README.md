@@ -12,7 +12,7 @@ The current **Java compatibility setting** in the project is the version **1.7**
 
 ### Cloning to your computer
 - install GIT and Java on your computer
-- set the operating system environment `JAVA_HOME` variable (the Java machine executable must be located **%JAVA_HOME%\bin\java.exe**)
+- set the operating system environment variable `JAVA_HOME` (the Java machine executable must be located on **%JAVA_HOME%\bin\java.exe**)
 - install Gradle on your computer
 - clone this repository to your computer by the GIT command `git clone https://github.com/petrfaltus/java-files-finder-gradle.git`
 
@@ -26,7 +26,7 @@ The current **Java compatibility setting** in the project is the version **1.7**
 - build the project by the command `gradle assemble build createExe`
 - launch the Java archive file by the command `java -jar build/libs/filesfinder-1.0-SNAPSHOT.jar`
 
-Warning - both files *settings.gradle* and *build.gradle* have the **Windows like ends of lines** (**CR + LF**), not Linux like
+Warning - both files *settings.gradle* and *build.gradle* have the **Windows line endings** (**CR+LF**), not Linux line endings
 
 ## To do (my plans to the future)
 - the application should also search the text **in the body** of files
