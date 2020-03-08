@@ -73,37 +73,37 @@ public class Gui extends JFrame {
             }
 
             if (source == menuItemAbout) {
-                AboutApplication();
+                aboutApplication();
             }
 
             if ((source == browseButton) || (source == menuItemBrowse)) {
-                BrowseDirectories();
+                browseDirectories();
             }
 
             if ((source == setDirectoryButton) || (source == menuItemSetDirectory)) {
-                SettingDirectory();
+                settingDirectory();
             }
 
             if ((source == defaultButton) || (source == menuItemDefault)) {
-                DefaultFileMask();
+                defaultFileMask();
             }
 
             if ((source == setFileMaskButton) || (source == menuItemSetFileMask)) {
-                SettingFileMask();
+                settingFileMask();
             }
 
             if ((source == searchButton) || (source == menuItemSearch)) {
-                Searching();
+                searching();
             }
         }
     }
 
-    private String AboutApplicationGetTitle() {
+    private String aboutApplicationGetTitle() {
         String title = "About the " + this.getTitle();
         return title;
     }
 
-    private void AboutApplication() {
+    private void aboutApplication() {
         String message = "Author: Petr Faltus © March 2020";
         message += System.lineSeparator();
         message += System.lineSeparator();
@@ -116,17 +116,17 @@ public class Gui extends JFrame {
 
         message += " ";
 
-        JOptionPane.showMessageDialog(this, message, AboutApplicationGetTitle(), JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, aboutApplicationGetTitle(), JOptionPane.INFORMATION_MESSAGE);
     }
 
-    private String BrowseDirectoriesGetTitle() {
+    private String browseDirectoriesGetTitle() {
         String title = "Browsing of the starting directory";
         return title;
     }
 
-    private void BrowseDirectories() {
+    private void browseDirectories() {
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle(BrowseDirectoriesGetTitle());
+        fileChooser.setDialogTitle(browseDirectoriesGetTitle());
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         fileChooser.setAcceptAllFileFilterUsed(false);
 
@@ -141,14 +141,14 @@ public class Gui extends JFrame {
         }
     }
 
-    private String SettingDirectoryGetTitle() {
+    private String settingDirectoryGetTitle() {
         String title = "Manual setting of the  starting directory";
         return title;
     }
 
-    private void SettingDirectory() {
+    private void settingDirectory() {
         String message = STARTING_DIRECTORY_LABEL;
-        String title = SettingDirectoryGetTitle();
+        String title = settingDirectoryGetTitle();
         String directoryName = directoryLabelValue.getText();
         directoryName = (String)JOptionPane.showInputDialog(this, message, title, JOptionPane.PLAIN_MESSAGE, null, null, directoryName);
 
@@ -157,14 +157,14 @@ public class Gui extends JFrame {
         }
     }
 
-    private String DefaultFileMaskGetTitle() {
+    private String defaultFileMaskGetTitle() {
         String title = "Default file mask setting";
         return title;
     }
 
-    private void DefaultFileMask() {
+    private void defaultFileMask() {
         String question = "Really set the default file mask '" + DEFAULT_FILE_MASK + "' ?";
-        String title = DefaultFileMaskGetTitle();
+        String title = defaultFileMaskGetTitle();
         int n = JOptionPane.showConfirmDialog(this, question, title, JOptionPane.YES_NO_OPTION);
 
         if (n == 0) {
@@ -172,14 +172,14 @@ public class Gui extends JFrame {
         }
     }
 
-    private String SettingFileMaskGetTitle() {
+    private String settingFileMaskGetTitle() {
         String title = "Manual setting of the file mask";
         return title;
     }
 
-    private void SettingFileMask() {
+    private void settingFileMask() {
         String message = FILE_MASK_LABEL;
-        String title = SettingFileMaskGetTitle();
+        String title = settingFileMaskGetTitle();
         String fileMaskName = fileMaskLabelValue.getText();
         fileMaskName = (String)JOptionPane.showInputDialog(this, message, title, JOptionPane.PLAIN_MESSAGE, null, null, fileMaskName);
 
@@ -188,7 +188,7 @@ public class Gui extends JFrame {
         }
     }
 
-    private void SearchingRecursive(File directory) {
+    private void searchingRecursive(File directory) {
         FileFilter directoryFilter = new FileFilter() {
             public boolean accept(File file) {
                 if (file.isDirectory()) {
@@ -201,7 +201,7 @@ public class Gui extends JFrame {
 
         File[] subdirectories = directory.listFiles(directoryFilter);
         for (File subdirectory: subdirectories) {
-            SearchingRecursive(subdirectory);
+            searchingRecursive(subdirectory);
         }
 
         FileFilter fileFilter = new FileFilter() {
@@ -232,14 +232,14 @@ public class Gui extends JFrame {
         }
     }
 
-    private String SearchingGetTitle() {
+    private String searchingGetTitle() {
         String title = "Files searching";
         return title;
     }
 
-    private void Searching() {
+    private void searching() {
         String question = "Really start the searching ?";
-        String title = SearchingGetTitle();
+        String title = searchingGetTitle();
         int n = JOptionPane.showConfirmDialog(this, question, title, JOptionPane.YES_NO_OPTION);
 
         if (n != 0) {
@@ -249,28 +249,28 @@ public class Gui extends JFrame {
         String directoryName = directoryLabelValue.getText().trim();
         if (directoryName.equals(EMPTY_STRING)) {
             String message = "The starting directory has not been set";
-            JOptionPane.showMessageDialog(this, message, SearchingGetTitle(), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, message, searchingGetTitle(), JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         File directory = new File(directoryName);
         if (!directory.isDirectory()) {
             String message = "The directory '" + directoryName + "' does not exist";
-            JOptionPane.showMessageDialog(this, message, SearchingGetTitle(), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, message, searchingGetTitle(), JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         resultContent = EMPTY_STRING;
         resultCount = 0;
-        SearchingRecursive(directory);
+        searchingRecursive(directory);
         resultTextArea.setText(resultContent);
         resultTextArea.setCaretPosition(0);
 
         String message = "Number of found files: " + resultCount;
-        JOptionPane.showMessageDialog(this, message, SearchingGetTitle(), JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, searchingGetTitle(), JOptionPane.INFORMATION_MESSAGE);
     }
 
-    private void Menu() {
+    private void menu() {
         MenuItemsButtonsListener menuItemsListener = new MenuItemsButtonsListener();
 
         // File menu items
@@ -287,31 +287,31 @@ public class Gui extends JFrame {
 
         // Run menu items
         menuItemBrowse = new JMenuItem("Browse directory");
-        menuItemBrowse.setToolTipText(BrowseDirectoriesGetTitle());
+        menuItemBrowse.setToolTipText(browseDirectoriesGetTitle());
         menuItemBrowse.setMnemonic(KeyEvent.VK_B);
         menuItemBrowse.setIcon(Icons.getResource("/ico/browse.png"));
         menuItemBrowse.addActionListener(menuItemsListener);
 
         menuItemSetDirectory = new JMenuItem("Set directory");
-        menuItemSetDirectory.setToolTipText(SettingDirectoryGetTitle());
+        menuItemSetDirectory.setToolTipText(settingDirectoryGetTitle());
         menuItemSetDirectory.setMnemonic(KeyEvent.VK_S);
         menuItemSetDirectory.setIcon(Icons.getResource("/ico/set.png"));
         menuItemSetDirectory.addActionListener(menuItemsListener);
 
         menuItemDefault = new JMenuItem("Default file mask");
-        menuItemDefault.setToolTipText(DefaultFileMaskGetTitle());
+        menuItemDefault.setToolTipText(defaultFileMaskGetTitle());
         menuItemDefault.setMnemonic(KeyEvent.VK_D);
         menuItemDefault.setIcon(Icons.getResource("/ico/default.png"));
         menuItemDefault.addActionListener(menuItemsListener);
 
         menuItemSetFileMask = new JMenuItem("Set file mask");
-        menuItemSetFileMask.setToolTipText(SettingFileMaskGetTitle());
+        menuItemSetFileMask.setToolTipText(settingFileMaskGetTitle());
         menuItemSetFileMask.setMnemonic(KeyEvent.VK_E);
         menuItemSetFileMask.setIcon(Icons.getResource("/ico/set.png"));
         menuItemSetFileMask.addActionListener(menuItemsListener);
 
         menuItemSearch = new JMenuItem("Search");
-        menuItemSearch.setToolTipText(SearchingGetTitle());
+        menuItemSearch.setToolTipText(searchingGetTitle());
         menuItemSearch.setMnemonic(KeyEvent.VK_A);
         menuItemSearch.setIcon(Icons.getResource("/ico/search.png"));
         menuItemSearch.addActionListener(menuItemsListener);
@@ -332,7 +332,7 @@ public class Gui extends JFrame {
 
         // Info menu items
         menuItemAbout = new JMenuItem("About");
-        menuItemAbout.setToolTipText(AboutApplicationGetTitle());
+        menuItemAbout.setToolTipText(aboutApplicationGetTitle());
         menuItemAbout.setMnemonic(KeyEvent.VK_A);
         menuItemAbout.setIcon(Icons.getResource("/ico/about.png"));
         menuItemAbout.addActionListener(menuItemsListener);
@@ -352,7 +352,7 @@ public class Gui extends JFrame {
         this.setJMenuBar(menuBar);
     }
 
-    private void Body() {
+    private void body() {
         Dimension gapInner = new Dimension(GAP_INNER, GAP_INNER);
 
         MenuItemsButtonsListener buttonsListener = new MenuItemsButtonsListener();
@@ -362,13 +362,13 @@ public class Gui extends JFrame {
         directoryLabelValue = new JLabel(EMPTY_STRING);
 
         browseButton = new JButton("Browse");
-        browseButton.setToolTipText(BrowseDirectoriesGetTitle());
+        browseButton.setToolTipText(browseDirectoriesGetTitle());
         browseButton.setMnemonic(KeyEvent.VK_B);
         browseButton.setIcon(Icons.getResource("/ico/browse.png"));
         browseButton.addActionListener(buttonsListener);
 
         setDirectoryButton = new JButton("Set");
-        setDirectoryButton.setToolTipText(SettingDirectoryGetTitle());
+        setDirectoryButton.setToolTipText(settingDirectoryGetTitle());
         setDirectoryButton.setMnemonic(KeyEvent.VK_S);
         setDirectoryButton.setIcon(Icons.getResource("/ico/set.png"));
         setDirectoryButton.addActionListener(buttonsListener);
@@ -386,13 +386,13 @@ public class Gui extends JFrame {
         fileMaskLabelValue = new JLabel(DEFAULT_FILE_MASK);
 
         defaultButton = new JButton("Default");
-        defaultButton.setToolTipText(DefaultFileMaskGetTitle());
+        defaultButton.setToolTipText(defaultFileMaskGetTitle());
         defaultButton.setMnemonic(KeyEvent.VK_D);
         defaultButton.setIcon(Icons.getResource("/ico/default.png"));
         defaultButton.addActionListener(buttonsListener);
 
         setFileMaskButton = new JButton("Set");
-        setFileMaskButton.setToolTipText(SettingFileMaskGetTitle());
+        setFileMaskButton.setToolTipText(settingFileMaskGetTitle());
         setFileMaskButton.setMnemonic(KeyEvent.VK_E);
         setFileMaskButton.setIcon(Icons.getResource("/ico/set.png"));
         setFileMaskButton.addActionListener(buttonsListener);
@@ -407,7 +407,7 @@ public class Gui extends JFrame {
 
         // search button line
         searchButton = new JButton("Search");
-        searchButton.setToolTipText(SearchingGetTitle());
+        searchButton.setToolTipText(searchingGetTitle());
         searchButton.setMnemonic(KeyEvent.VK_A);
         searchButton.setIcon(Icons.getResource("/ico/search.png"));
         searchButton.addActionListener(buttonsListener);
@@ -455,7 +455,7 @@ public class Gui extends JFrame {
         Image image = imageIcon.getImage();
         this.setIconImage(image);
 
-        Menu();
-        Body();
+        menu();
+        body();
     }
 }
