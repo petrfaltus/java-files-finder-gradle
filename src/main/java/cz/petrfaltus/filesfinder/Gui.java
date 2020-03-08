@@ -34,12 +34,10 @@ public class Gui extends JFrame {
     private static final int GAP_INNER = 8;
     private static final int GAP_BORDER = 18;
 
-    private static final String EMPTY_STRING = "";
-
     private static final String STARTING_DIRECTORY_LABEL = "Starting directory: ";
     private static final String FILE_MASK_LABEL = "File mask: ";
 
-    private static final String DEFAULT_FILE_MASK = EMPTY_STRING;
+    private static final String DEFAULT_FILE_MASK = Const.EMPTY_STRING;
 
     private JMenuItem menuItemExit;
     private JMenuItem menuItemBrowse;
@@ -200,7 +198,7 @@ public class Gui extends JFrame {
         }
 
         String directoryName = directoryLabelValue.getText().trim();
-        if (directoryName.equals(EMPTY_STRING)) {
+        if (directoryName.equals(Const.EMPTY_STRING)) {
             String message = "The starting directory has not been set";
             JOptionPane.showMessageDialog(this, message, searchingGetTitle(), JOptionPane.ERROR_MESSAGE);
             return;
@@ -320,7 +318,7 @@ public class Gui extends JFrame {
 
         // directory line
         JLabel directoryLabel = new JLabel(STARTING_DIRECTORY_LABEL);
-        directoryLabelValue = new JLabel(EMPTY_STRING);
+        directoryLabelValue = new JLabel(Const.EMPTY_STRING);
 
         browseButton = new JButton("Browse");
         browseButton.setToolTipText(browseDirectoriesGetTitle());
