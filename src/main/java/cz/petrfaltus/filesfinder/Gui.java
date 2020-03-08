@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import java.io.File;
-import java.io.FileFilter;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -60,8 +59,6 @@ public class Gui extends JFrame {
     private JButton searchButton;
 
     private JTextArea resultTextArea;
-    private String resultContent;
-    private int resultCount;
 
     private class MenuItemsButtonsListener implements ActionListener {
         @Override
@@ -188,50 +185,6 @@ public class Gui extends JFrame {
         }
     }
 
-    private void searchingRecursive(File directory) {
-        FileFilter directoryFilter = new FileFilter() {
-            public boolean accept(File file) {
-                if (file.isDirectory()) {
-                    return true;
-                }
-
-                return false;
-            }
-        };
-
-        File[] subdirectories = directory.listFiles(directoryFilter);
-        for (File subdirectory: subdirectories) {
-            searchingRecursive(subdirectory);
-        }
-
-        FileFilter fileFilter = new FileFilter() {
-            public boolean accept(File file) {
-                if (!file.isFile()) {
-                    return false;
-                }
-
-                String fileMaskName = fileMaskLabelValue.getText();
-                if (fileMaskName.equals(EMPTY_STRING)) {
-                    return true;
-                }
-
-                String fileName = file.getName();
-                if (fileName.contains(fileMaskName)) {
-                    return true;
-                }
-
-                return false;
-            }
-        };
-
-        File[] files = directory.listFiles(fileFilter);
-        for (File file: files) {
-            resultContent += file.getPath();
-            resultContent += System.lineSeparator();
-            resultCount++;
-        }
-    }
-
     private String searchingGetTitle() {
         String title = "Files searching";
         return title;
@@ -260,13 +213,21 @@ public class Gui extends JFrame {
             return;
         }
 
-        resultContent = EMPTY_STRING;
-        resultCount = 0;
-        searchingRecursive(directory);
-        resultTextArea.setText(resultContent);
+        String fileMask = fileMaskLabelValue.getText();
+
+        Search search = new Search();
+        String result = search.run(directory, fileMask);
+        if (result == null) {
+            String message = search.getError();
+            JOptionPane.showMessageDialog(this, message, searchingGetTitle(), JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        resultTextArea.setText(result);
         resultTextArea.setCaretPosition(0);
 
-        String message = "Number of found files: " + resultCount;
+        int count = search.getCount();
+        String message = "Number of found files: " + count;
         JOptionPane.showMessageDialog(this, message, searchingGetTitle(), JOptionPane.INFORMATION_MESSAGE);
     }
 
