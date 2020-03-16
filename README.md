@@ -8,7 +8,7 @@ For the searching **by the file name** must be also the **file mask** specified.
 ## Versions
 Now in March 2020 my version of Java is (OpenJDK) **12.0.2** and my version of Gradle is **5.2.1**. I also successfully tested old Java version (SE) **1.7.0_80** and Gradle **4.10.3**.
 
-The current **Java compatibility setting** in the project is the version **1.7**. If You want set the version 1.8 or newer, please change the line `sourceCompatibility = 1.7` of *build.gradle* file.
+The current **Java compatibility setting** in the project is the version **1.7**. If You want to set the version 1.8 or newer, please change the line `sourceCompatibility = 1.7` of *build.gradle* file.
 
 ### Cloning to your computer
 - install GIT and Java on your computer
@@ -26,7 +26,7 @@ The current **Java compatibility setting** in the project is the version **1.7**
 - build the project by the command `gradle assemble build createExe`
 - launch the Java archive file by the command `java -jar build/libs/filesfinder-1.0-SNAPSHOT.jar`
 
-Warning - both files *settings.gradle* and *build.gradle* have the **Windows line endings** (**CR+LF**), not Linux line endings
+Warning - both files *settings.gradle* and *build.gradle* have the **Windows line endings** (**CR+LF**), not Linux line endings (LF)
 
 ## To do (my plans to the future)
 - the application should also search the text **in the body** of files
