@@ -98,6 +98,11 @@ public class Gui extends JFrame {
     private class TextsMouseListener implements MouseListener {
         @Override
         public void mouseClicked(MouseEvent event) {
+            Object source = event.getSource();
+
+            if (source == resultTextArea) {
+                copyingToClipboard();
+            }
         }
 
         @Override
@@ -253,6 +258,9 @@ public class Gui extends JFrame {
         JOptionPane.showMessageDialog(this, message, searchingGetTitle(), JOptionPane.INFORMATION_MESSAGE);
     }
 
+    private void copyingToClipboard() {
+    }
+
     private void menu() {
         MenuItemsButtonsListener menuItemsListener = new MenuItemsButtonsListener();
 
@@ -339,6 +347,7 @@ public class Gui extends JFrame {
         Dimension gapInner = new Dimension(GAP_INNER, GAP_INNER);
 
         MenuItemsButtonsListener buttonsListener = new MenuItemsButtonsListener();
+        TextsMouseListener textsMouseListener = new TextsMouseListener();
 
         // directory line
         JLabel directoryLabel = new JLabel(STARTING_DIRECTORY_LABEL);
@@ -403,6 +412,7 @@ public class Gui extends JFrame {
         resultTextArea = new JTextArea(90, 300);
         resultTextArea.setEditable(false);
         resultTextArea.setLineWrap(false);
+        resultTextArea.addMouseListener(textsMouseListener);
 
         JScrollPane resultScrollPane = new JScrollPane(resultTextArea);
 
