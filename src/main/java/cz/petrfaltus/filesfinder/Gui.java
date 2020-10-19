@@ -137,7 +137,7 @@ public class Gui extends JFrame {
     }
 
     private String settingDirectoryGetTitle() {
-        String title = "Manual setting of the  starting directory";
+        String title = "Manual setting of the starting directory";
         return title;
     }
 
