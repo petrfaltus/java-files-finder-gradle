@@ -4,6 +4,10 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
+
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -258,7 +262,35 @@ public class Gui extends JFrame {
         JOptionPane.showMessageDialog(this, message, searchingGetTitle(), JOptionPane.INFORMATION_MESSAGE);
     }
 
+    private String copyingToClipboardGetTitle() {
+        String title = "Copying of the result";
+        return title;
+    }
+
     private void copyingToClipboard() {
+        String question = "Really copy the result to the clipboard ?";
+        String title = copyingToClipboardGetTitle();
+        int n = JOptionPane.showConfirmDialog(this, question, title, JOptionPane.YES_NO_OPTION);
+
+        if (n != 0) {
+            return;
+        }
+
+        String resultString = resultTextArea.getText();
+        if (resultString.equals(Const.EMPTY_STRING)) {
+            String message = "There is no result yet";
+            JOptionPane.showMessageDialog(this, message, copyingToClipboardGetTitle(), JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        StringSelection stringSelection = new StringSelection(resultString);
+
+        Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
+        Clipboard clipboard = defaultToolkit.getSystemClipboard();
+        clipboard.setContents(stringSelection, null);
+
+        String message = "Result copied to the clipboard";
+        JOptionPane.showMessageDialog(this, message, copyingToClipboardGetTitle(), JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void menu() {
