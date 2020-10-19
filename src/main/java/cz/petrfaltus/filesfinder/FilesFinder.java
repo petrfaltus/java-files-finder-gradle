@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 public class FilesFinder {
     public static void main(String[] args) {
-        Dimension preferredSize = new Dimension(600, 400);
+        Dimension preferredSize = new Dimension(Const.APP_WINDOW_WIDTH, Const.APP_WINDOW_HEIGHT);
 
         Gui window = new Gui("Files finder");
         window.setLocationRelativeTo(null); // place to the middle of the screen
