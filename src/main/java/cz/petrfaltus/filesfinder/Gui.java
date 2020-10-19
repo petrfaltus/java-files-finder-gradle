@@ -8,6 +8,8 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import java.io.File;
 
@@ -90,6 +92,28 @@ public class Gui extends JFrame {
             if ((source == searchButton) || (source == menuItemSearch)) {
                 searching();
             }
+        }
+    }
+
+    private class TextsMouseListener implements MouseListener {
+        @Override
+        public void mouseClicked(MouseEvent event) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent event) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent event) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent event) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent event) {
         }
     }
 
