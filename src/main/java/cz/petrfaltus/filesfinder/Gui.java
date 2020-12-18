@@ -4,10 +4,16 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
+
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import java.io.File;
 
@@ -93,6 +99,33 @@ public class Gui extends JFrame {
         }
     }
 
+    private class TextsMouseListener implements MouseListener {
+        @Override
+        public void mouseClicked(MouseEvent event) {
+            Object source = event.getSource();
+
+            if (source == resultTextArea) {
+                copyingToClipboard();
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent event) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent event) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent event) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent event) {
+        }
+    }
+
     private String aboutApplicationGetTitle() {
         String title = "About the " + this.getTitle();
         return title;
@@ -137,7 +170,7 @@ public class Gui extends JFrame {
     }
 
     private String settingDirectoryGetTitle() {
-        String title = "Manual setting of the  starting directory";
+        String title = "Manual setting of the starting directory";
         return title;
     }
 
@@ -229,6 +262,37 @@ public class Gui extends JFrame {
         JOptionPane.showMessageDialog(this, message, searchingGetTitle(), JOptionPane.INFORMATION_MESSAGE);
     }
 
+    private String copyingToClipboardGetTitle() {
+        String title = "Copying of the result";
+        return title;
+    }
+
+    private void copyingToClipboard() {
+        String question = "Really copy the result to the clipboard ?";
+        String title = copyingToClipboardGetTitle();
+        int n = JOptionPane.showConfirmDialog(this, question, title, JOptionPane.YES_NO_OPTION);
+
+        if (n != 0) {
+            return;
+        }
+
+        String resultString = resultTextArea.getText();
+        if (resultString.equals(Const.EMPTY_STRING)) {
+            String message = "There is no result yet";
+            JOptionPane.showMessageDialog(this, message, copyingToClipboardGetTitle(), JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        StringSelection stringSelection = new StringSelection(resultString);
+
+        Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
+        Clipboard clipboard = defaultToolkit.getSystemClipboard();
+        clipboard.setContents(stringSelection, null);
+
+        String message = "Result copied to the clipboard";
+        JOptionPane.showMessageDialog(this, message, copyingToClipboardGetTitle(), JOptionPane.INFORMATION_MESSAGE);
+    }
+
     private void menu() {
         MenuItemsButtonsListener menuItemsListener = new MenuItemsButtonsListener();
 
@@ -315,6 +379,7 @@ public class Gui extends JFrame {
         Dimension gapInner = new Dimension(GAP_INNER, GAP_INNER);
 
         MenuItemsButtonsListener buttonsListener = new MenuItemsButtonsListener();
+        TextsMouseListener textsMouseListener = new TextsMouseListener();
 
         // directory line
         JLabel directoryLabel = new JLabel(STARTING_DIRECTORY_LABEL);
@@ -379,6 +444,7 @@ public class Gui extends JFrame {
         resultTextArea = new JTextArea(90, 300);
         resultTextArea.setEditable(false);
         resultTextArea.setLineWrap(false);
+        resultTextArea.addMouseListener(textsMouseListener);
 
         JScrollPane resultScrollPane = new JScrollPane(resultTextArea);
 
