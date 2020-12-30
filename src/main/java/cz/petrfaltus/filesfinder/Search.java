@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileFilter;
 
 public class Search {
+    private File rootDirectory;
     private String fileMask;
 
     private String result = Const.EMPTY_STRING;
@@ -64,10 +65,8 @@ public class Search {
         }
     }
 
-    public void run(File rootDirectory, String searchFileMask) {
-        fileMask = searchFileMask;
+    public void run() {
         runRecursive(rootDirectory);
-
         return;
     }
 
@@ -86,5 +85,10 @@ public class Search {
 
     public int getCount() {
         return count;
+    }
+
+    public Search(File rootDirectory, String fileMask) {
+        this.rootDirectory = rootDirectory;
+        this.fileMask = fileMask;
     }
 }
