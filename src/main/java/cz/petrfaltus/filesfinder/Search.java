@@ -64,16 +64,20 @@ public class Search {
         }
     }
 
-    public String run(File rootDirectory, String searchFileMask) {
+    public void run(File rootDirectory, String searchFileMask) {
         fileMask = searchFileMask;
         runRecursive(rootDirectory);
 
-        return result;
+        return;
     }
 
     public synchronized void cancel() {
         error = "Canceled by the user";
         return;
+    }
+
+    public String getResult() {
+        return result;
     }
 
     public String getError() {

@@ -247,7 +247,8 @@ public class Gui extends JFrame {
         String fileMask = fileMaskLabelValue.getText();
 
         Search search = new Search();
-        String result = search.run(directory, fileMask);
+        search.run(directory, fileMask);
+        String result = search.getResult();
         if (result == null) {
             String message = search.getError();
             JOptionPane.showMessageDialog(this, message, searchingGetTitle(), JOptionPane.ERROR_MESSAGE);
