@@ -26,6 +26,7 @@ public class Search {
             runRecursive(subdirectory);
 
             if (error != null) {
+                result = null;
                 return;
             }
         }
@@ -57,6 +58,7 @@ public class Search {
             count++;
 
             if (error != null) {
+                result = null;
                 return;
             }
         }
@@ -67,6 +69,11 @@ public class Search {
         runRecursive(rootDirectory);
 
         return result;
+    }
+
+    public synchronized void cancel() {
+        error = "Canceled by the user";
+        return;
     }
 
     public String getError() {
