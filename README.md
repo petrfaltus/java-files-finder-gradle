@@ -31,4 +31,3 @@ Warning - both files *settings.gradle* and *build.gradle* have the **Windows lin
 ## To do (my plans to the future)
 - the application should also search the text **in the body** of files
 - the text searching should also support **regular expressions**
-- the search functionality should be running in any **other thread** and there should be also the button for **canceling**
