@@ -225,8 +225,8 @@ public class Gui extends JFrame {
     private Point searchingWindowGetLeftUpperCorner() {
         Point leftUpperCorner = getLocation();
 
-        int dx = (int)((Const.APP_WINDOW_WIDTH - Const.APP_WINDOW_SEARCH_WIDTH) / 2);
-        int dy = (int)((Const.APP_WINDOW_HEIGHT - Const.APP_WINDOW_SEARCH_HEIGHT) / 2);
+        int dx = (int)((getWidth() - Const.APP_WINDOW_SEARCH_WIDTH) / 2);
+        int dy = (int)((getHeight() - Const.APP_WINDOW_SEARCH_HEIGHT) / 2);
         leftUpperCorner.translate(dx, dy);
 
         return leftUpperCorner;
