@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 
 import java.awt.datatransfer.Clipboard;
@@ -221,6 +222,30 @@ public class Gui extends JFrame {
         return title;
     }
 
+    private Point searchingWindowGetLeftUpperCorner() {
+        Point leftUpperCorner = getLocation();
+
+        int dx = (int)((getWidth() - Const.APP_WINDOW_SEARCH_WIDTH) / 2);
+        int dy = (int)((getHeight() - Const.APP_WINDOW_SEARCH_HEIGHT) / 2);
+        leftUpperCorner.translate(dx, dy);
+
+        return leftUpperCorner;
+    }
+
+    private void searchingWindow(Search search) {
+        Point leftUpperCorner = searchingWindowGetLeftUpperCorner();
+        Dimension preferredSize = new Dimension(Const.APP_WINDOW_SEARCH_WIDTH, Const.APP_WINDOW_SEARCH_HEIGHT);
+
+        GuiSearching window = new GuiSearching(this, searchingGetTitle());
+        window.setLocation(leftUpperCorner);
+        window.setPreferredSize(preferredSize);
+        window.pack();
+        window.setDefaultCloseOperation(GuiSearching.DO_NOTHING_ON_CLOSE);
+
+        window.startWork(search);
+        window.setVisible(true);
+    }
+
     private void searching() {
         String question = "Really start the searching ?";
         String title = searchingGetTitle();
@@ -246,8 +271,9 @@ public class Gui extends JFrame {
 
         String fileMask = fileMaskLabelValue.getText();
 
-        Search search = new Search();
-        String result = search.run(directory, fileMask);
+        Search search = new Search(directory, fileMask);
+        searchingWindow(search);
+        String result = search.getResult();
         if (result == null) {
             String message = search.getError();
             JOptionPane.showMessageDialog(this, message, searchingGetTitle(), JOptionPane.ERROR_MESSAGE);
