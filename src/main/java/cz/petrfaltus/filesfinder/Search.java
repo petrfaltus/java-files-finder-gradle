@@ -66,7 +66,14 @@ public class Search {
     }
 
     public void run() {
-        runRecursive(rootDirectory);
+
+        try {
+            runRecursive(rootDirectory);
+        } catch (NullPointerException npe) {
+            error = "Out of memory";
+            result = null;
+        }
+
         return;
     }
 
