@@ -38,6 +38,9 @@ import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
 public class Gui extends JFrame {
+    private static final String APPLICATION_DATE = "March 2020 - January 2021";
+    private static final String APPLICATION_VERSION = "2.0";
+
     private static final int GAP_INNER = 8;
     private static final int GAP_BORDER = 18;
 
@@ -138,7 +141,9 @@ public class Gui extends JFrame {
     }
 
     private void aboutApplication() {
-        String message = "Author: Petr Faltus © March 2020";
+        String message = "Author: Petr Faltus © " + APPLICATION_DATE;
+        message += System.lineSeparator();
+        message += "Version: " + APPLICATION_VERSION;
         message += System.lineSeparator();
         message += System.lineSeparator();
 
