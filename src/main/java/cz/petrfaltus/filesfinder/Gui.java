@@ -52,6 +52,7 @@ public class Gui extends JFrame {
     private JMenuItem menuItemDefault;
     private JMenuItem menuItemSetFileMask;
     private JMenuItem menuItemSearch;
+    private JMenuItem menuItemCopyToClipboard;
     private JMenuItem menuItemAbout;
 
     private JLabel directoryLabelValue;
@@ -96,6 +97,10 @@ public class Gui extends JFrame {
 
             if ((source == searchButton) || (source == menuItemSearch)) {
                 searching();
+            }
+
+            if (source == menuItemCopyToClipboard) {
+                copyingToClipboard();
             }
         }
     }
@@ -365,6 +370,12 @@ public class Gui extends JFrame {
         menuItemSearch.setIcon(Icons.getResource("/ico/search.png"));
         menuItemSearch.addActionListener(menuItemsListener);
 
+        menuItemCopyToClipboard = new JMenuItem("Copy to clipboard");
+        menuItemCopyToClipboard.setToolTipText(copyingToClipboardGetTitle());
+        menuItemCopyToClipboard.setMnemonic(KeyEvent.VK_C);
+        menuItemCopyToClipboard.setIcon(Icons.getResource("/ico/copy.png"));
+        menuItemCopyToClipboard.addActionListener(menuItemsListener);
+
         JMenu menuRun = new JMenu("Run");
         menuRun.setMnemonic(KeyEvent.VK_R);
         menuRun.setIcon(Icons.getResource("/ico/run.png"));
@@ -375,6 +386,8 @@ public class Gui extends JFrame {
         menuRun.add(menuItemSetFileMask);
         menuRun.add(new JSeparator());
         menuRun.add(menuItemSearch);
+        menuRun.add(new JSeparator());
+        menuRun.add(menuItemCopyToClipboard);
 
         // horizontal menu glue
         Component horizontalGlue = Box.createHorizontalGlue();
