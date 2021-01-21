@@ -5,6 +5,8 @@ For the operation there must be the **starting directory** specified. It can be 
 
 For the searching **by the file name** must be also the **file mask** specified. The file mask must be entered as the file name substring (for example **.java**), not as the operating system mask (for example **\*.java**)
 
+![Application screenshot](application.screenshot.png)
+
 ## Versions
 Now in March 2020 my version of Java is (OpenJDK) **12.0.2** and my version of Gradle is **5.2.1**. I also successfully tested old Java version (SE) **1.7.0_80** and Gradle **4.10.3**.
 
