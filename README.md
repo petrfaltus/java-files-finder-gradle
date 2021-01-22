@@ -1,5 +1,5 @@
 # Files finder
-The Java application for finding files build by the Gradle
+The Java application for finding files built by the Gradle
 
 For the operation there must be the **starting directory** specified. It can be done by the directory browsing or manual by entering the value. So finds the application all files in the directory and in all subdirectories.
 
