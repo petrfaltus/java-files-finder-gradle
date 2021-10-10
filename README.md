@@ -19,10 +19,10 @@ The current **Java compatibility setting** in the project is the version **1.7**
 - clone this repository to your computer by the GIT command `git clone https://github.com/petrfaltus/java-files-finder-gradle.git`
 
 ### Running under Windows
-- the batch *_make.bat* builds the project, it creates the executable **JAR** file (**Java archive**) and the **EXE** file (**Windows executable**)
-- the batch *_run_java_archive.bat* launches the Java archive file in the **build\libs** directory
-- the batch *_run_windows_executable.bat* launches the Windows executable file in the **build\launch4j** directory
-- the batch *_clean* deletes files and directories created at the time of Gradle building
+- the batch *_make.cmd* builds the project, it creates the executable **JAR** file (**Java archive**) and the **EXE** file (**Windows executable**)
+- the batch *_run_java_archive.cmd* launches the Java archive file in the **build\libs** directory
+- the batch *_run_windows_executable.cmd* launches the Windows executable file in the **build\launch4j** directory
+- the batch *_clean.cmd* deletes files and directories created at the time of Gradle building
 
 ### Running under Linux
 - build the project by the command `gradle assemble build createExe`
